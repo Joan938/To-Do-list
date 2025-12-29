@@ -1,10 +1,12 @@
 import React from 'react';
 
+
 const TodoItem = ({ todo, onToggle, onEdit, onDelete }) => {
   const formatDate = (dateString) => {
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    const options = { year: 'numeric', month: 'short', day: 'numeric' };
     return new Date(dateString).toLocaleDateString('es-ES', options);
   };
+
 
   return (
     <div className={`todo-item ${todo.completada ? 'completed' : ''}`}>
@@ -22,14 +24,14 @@ const TodoItem = ({ todo, onToggle, onEdit, onDelete }) => {
           )}
         </div>
       </div>
-      
+     
       <div className="todo-actions">
         <button
           onClick={() => onToggle(todo._id)}
           className={`btn ${todo.completada ? 'btn-warning' : 'btn-success'}`}
           title={todo.completada ? 'Marcar como pendiente' : 'Marcar como completada'}
         >
-          {todo.completada ? '↶' : '✓'}
+          {todo.completada ? '↺' : '✓'}
         </button>
         <button
           onClick={() => onEdit(todo)}
@@ -43,11 +45,12 @@ const TodoItem = ({ todo, onToggle, onEdit, onDelete }) => {
           className="btn btn-danger"
           title="Eliminar tarea"
         >
-          🗑
+          ×
         </button>
       </div>
     </div>
   );
 };
+
 
 export default TodoItem;

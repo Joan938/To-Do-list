@@ -4,16 +4,19 @@ import TodoList from './components/TodoList';
 import todoService from './services/todoService';
 import './App.css';
 
+
 function App() {
   const [todos, setTodos] = useState([]);
   const [editingTodo, setEditingTodo] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+
   // Cargar tareas al iniciar
   useEffect(() => {
     loadTodos();
   }, []);
+
 
   const loadTodos = async () => {
     try {
@@ -29,6 +32,7 @@ function App() {
     }
   };
 
+
   const handleCreateTodo = async (todoData) => {
     try {
       const response = await todoService.createTodo(todoData);
@@ -40,10 +44,11 @@ function App() {
     }
   };
 
+
   const handleUpdateTodo = async (todoData) => {
     try {
       const response = await todoService.updateTodo(editingTodo._id, todoData);
-      setTodos(todos.map((todo) => 
+      setTodos(todos.map((todo) =>
         todo._id === editingTodo._id ? response.data : todo
       ));
       setEditingTodo(null);
@@ -54,10 +59,11 @@ function App() {
     }
   };
 
+
   const handleToggleTodo = async (id) => {
     try {
       const response = await todoService.toggleTodo(id);
-      setTodos(todos.map((todo) => 
+      setTodos(todos.map((todo) =>
         todo._id === id ? response.data : todo
       ));
     } catch (err) {
@@ -65,6 +71,7 @@ function App() {
       console.error('Error:', err);
     }
   };
+
 
   const handleDeleteTodo = async (id) => {
     if (window.confirm('¿Estás seguro de que deseas eliminar esta tarea?')) {
@@ -79,14 +86,17 @@ function App() {
     }
   };
 
+
   const handleEditTodo = (todo) => {
     setEditingTodo(todo);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+
   const handleCancelEdit = () => {
     setEditingTodo(null);
   };
+
 
   const handleSubmit = (todoData) => {
     if (editingTodo) {
@@ -96,49 +106,51 @@ function App() {
     }
   };
 
-  return (
-    <div className="App">
-      <header className="app-header">
-        <h1>📝 To-Do List</h1>
-        <p className="subtitle">Gestiona tus tareas de manera eficiente</p>
-      </header>
 
-      <main className="app-main">
-        {error && (
-          <div className="error-message">
-            {error}
-          </div>
-        )}
+ return (
+  <div className="App">
+    <header className="app-header">
+      <h1>To-Do List</h1>
+      <p className="subtitle">Gestiona tus tareas de manera eficiente</p>
+    </header>
 
-        <div className="container">
-          <div className="form-section">
-            <TodoForm
-              onSubmit={handleSubmit}
-              editingTodo={editingTodo}
-              onCancel={handleCancelEdit}
-            />
-          </div>
 
-          <div className="list-section">
-            {loading ? (
-              <div className="loading">Cargando tareas...</div>
-            ) : (
-              <TodoList
-                todos={todos}
-                onToggle={handleToggleTodo}
-                onEdit={handleEditTodo}
-                onDelete={handleDeleteTodo}
-              />
-            )}
-          </div>
+    <main className="app-main">
+      {error && (
+        <div className="error-message">
+          {error}
         </div>
-      </main>
+      )}
 
-      <footer className="app-footer">
-        <p>Desarrollado por Joan Martínez | React + Node.js + MongoDB</p>
-      </footer>
-    </div>
-  );
+
+      <div className="container">
+        <TodoForm
+          onSubmit={handleSubmit}
+          editingTodo={editingTodo}
+          onCancel={handleCancelEdit}
+        />
+
+
+        {loading ? (
+          <div className="loading">Cargando tareas...</div>
+        ) : (
+          <TodoList
+            todos={todos}
+            onToggle={handleToggleTodo}
+            onEdit={handleEditTodo}
+            onDelete={handleDeleteTodo}
+          />
+        )}
+      </div>
+    </main>
+
+
+    <footer className="app-footer">
+      <p>Desarrollado por Joan Martínez | React + Node.js + MongoDB</p>
+    </footer>
+  </div>
+);
 }
+
 
 export default App;
