@@ -1,23 +1,21 @@
 {
   "name": "frontend-vue",
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "Frontend Vue.js para To-Do List",
+  "author": "Joan Martínez",
   "private": true,
   "type": "module",
-  "engines": {
-    "node": "^20.19.0 || >=22.12.0"
-  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
-    "axios": "^1.13.2",
+    "axios": "^1.7.9",
     "vue": "^3.5.26"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^6.0.3",
-    "vite": "^7.3.0",
-    "vite-plugin-vue-devtools": "^8.0.5"
+    "vite": "^7.3.0"
   }
 }
